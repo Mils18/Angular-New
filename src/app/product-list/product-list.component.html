@@ -1,8 +1,30 @@
 <h2>Products</h2>
 
+<!-- set index for routing -->
+<div *ngFor="let product of products; index as productId">
 
-<!-- 
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
--->
+  <h3>
+    <!-- Make it clickable, when hover show "product name details"
+    , when clicked route to detail page(URL :products', productId)-->
+    <a [title]="product.name + ' details'" [routerLink]="['/products', productId]">
+      <!-- shows product title -->
+      {{ product.name }}
+    </a>
+  </h3>
+  
+<!-- shows product description, if it has -->
+<p *ngIf="product.description">
+    Description: {{ product.description }}
+  </p>
+
+<!-- shows share button and calls share funct from product-list comp.ts -->
+<button (click)="share()">
+  Share
+</button>
+
+<!-- shows Notify Me, calls notify funct from product-list comp.ts -->
+<app-product-alerts
+  [product]="product"
+  (notify)="onNotify()">
+</app-product-alerts>
+</div>
